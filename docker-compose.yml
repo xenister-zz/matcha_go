@@ -1,0 +1,41 @@
+version: '3.5'
+services:
+  neo4j:
+    image: neo4j:latest
+    container_name: 'neo4j'
+    volumes:
+    - ./neo4j/data:/data
+    - ./neo4j/conf/:/conf
+    ports:
+    - 7474:7474
+    - 7687:7687
+    restart: on-failure
+    networks:
+    - default
+
+  api:
+    build: ./server
+    container_name: 'api'
+    volumes:
+    - ${GOPATH}/src:/go/src
+    - ./server:/matcha/server
+    ports:
+    - "81:81"
+    depends_on:
+    - neo4j
+    environment:
+      NEO_HOST: neo4j
+    tty: true
+    links:
+    - neo4j
+    networks:
+    - default
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  neo4j:
+  api:
