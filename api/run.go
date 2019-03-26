@@ -1,10 +1,9 @@
-//tatata
-package main
+package api
 
 import (
 	"fmt"
 )
 
-func main() {
+func connect() {
 	fmt.Println("Run Api")
 }
