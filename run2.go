@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println("Run Api")
+	fmt.Println("Run2 Api")
 }
